@@ -56,6 +56,10 @@ class Course(models.Model):
         total_enrolled_students=StudentCourseEnrollment.objects.filter(course=self).count()
         return total_enrolled_students
     
+    def course_rating(self):
+        course_rating=CourseRating.objects.filter(course=self).aggregate(models.Avg('rating'))
+        return course_rating
+    
     def __str__(self):
         return self.title
 
@@ -110,5 +114,5 @@ class CourseRating(models.Model):
     review_time=models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"{self.course}-{self.student}-{self.rating}"
+        return f"{self.student} rated {self.course} course with {self.rating}"
     

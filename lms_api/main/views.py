@@ -3,7 +3,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.views import APIView
-from main.serializers import TeacherSerializer, CategorySerializer, CourseSerializer, ChapterSerializer, StudentSerializer, StudentCourseEnrollSerializer, FetchStudentCourseEnrollSerializer, CourseRatingSerializer
+from main.serializers import TeacherSerializer, CategorySerializer, CourseSerializer, ChapterSerializer, StudentSerializer, StudentCourseEnrollSerializer, FetchStudentCourseEnrollSerializer, CourseRatingSerializer, AllCourseRatingSerializer
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import permissions
@@ -153,6 +153,15 @@ def fetch_enroll_status(request,student_id,course_id):
         return JsonResponse({'bool': True})
     else:
         return JsonResponse({'bool': False})
+    
+def fetch_rating_status(request,student_id,course_id):
+    student=models.Student.objects.filter(id=student_id).first()
+    course=models.Course.objects.filter(id=course_id).first()
+    ratingStatus=models.CourseRating.objects.filter(course=course,student=student).count()
+    if ratingStatus:
+        return JsonResponse({'bool': True})
+    else:
+        return JsonResponse({'bool': False})
         
 class EnrolledStudentList(generics.ListAPIView):
     serializer_class=FetchStudentCourseEnrollSerializer
@@ -168,4 +177,8 @@ class CourseRatingList(generics.ListCreateAPIView):
     def get_queryset(self):
         course_id=self.kwargs['course_id']
         course=models.Course.objects.get(pk=course_id)
-        return models.CourseRating.objects.filter(course=course)     
+        return models.CourseRating.objects.filter(course=course)
+    
+class AllCourseRatingList(generics.ListAPIView):
+    queryset=models.CourseRating.objects.all()
+    serializer_class=AllCourseRatingSerializer     

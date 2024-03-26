@@ -16,6 +16,8 @@ function CourseDetail() {
     const studentId = localStorage.getItem('studentId');
     const [userLoginStatus, setuserLoginStatus] = useState();
     const [enrollStatus, setenrollStatus] = useState();
+    const [ratingStatus, setratingStatus] = useState();
+    const [rating, setrating] = useState();
     const [ratingFormData, setRatingFormData] = useState({
         rating: '',
         reviews: '',
@@ -32,6 +34,10 @@ function CourseDetail() {
                 setTeacherData(response.data.teacher);
                 setrelatedcourseData(JSON.parse(response.data.related_videos));
                 settechListData(response.data.tech_list);
+
+                if(response.data.course_rating !== '' && response.data.course_rating!==null){
+                    setrating(response.data.course_rating.rating__avg)
+                }
             } catch (error) {
                 console.error('Error fetching chapters:', error);
             }
@@ -40,6 +46,15 @@ function CourseDetail() {
                 const response = await axios.get(`${baseUrl}fetch-enroll-status/${studentId}/${course_id}/`);
                 if(response.data.bool===true){
                     setenrollStatus('success');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+
+            try {
+                const response = await axios.get(`${baseUrl}fetch-rating-status/${studentId}/${course_id}/`);
+                if(response.data.bool===true){
+                    setratingStatus('success');
                 }
             } catch (error) {
                 console.error(error);
@@ -71,6 +86,7 @@ function CourseDetail() {
                 text: 'Enrolled Successfully!',
             });
             console.log(response.data);
+            window.location.reload();
         } catch (error) {
             console.log('Error enrolling course:', error);
         }
@@ -93,12 +109,14 @@ function CourseDetail() {
                 icon: 'success',
                 title: 'Success!',
                 text: 'Rating Submitted Successfully!',
+                timer: 5000,
             });
             // Reset form data
             setRatingFormData({
                 rating: '',
                 review: ''
             });
+            window.location.reload();
         } catch (error) {
             console.error('Error submitting rating:', error);
         }
@@ -124,10 +142,15 @@ function CourseDetail() {
                             </li>
                             <li><strong>Price:</strong> Rs.500</li>
                             <li>
-                                <strong>Rating: 4.5/5
+                                <strong>Rating: {rating}/5
                                 { enrollStatus === 'success' && userLoginStatus === 'success' && (
                                     <>
-                                    <button className='btn btn-success btn-sm ml-2' data-bs-toggle='modal' data-bs-target='#ratingModal'>Rating</button>
+                                    {ratingStatus !== 'success' &&
+                                        <button className='btn btn-success btn-sm ms-2' data-bs-toggle='modal' data-bs-target='#ratingModal'>Rating</button>
+                                    }
+                                    {ratingStatus === 'success' &&
+                                    <span style={{color:'green'}}>(You have already rated this course)</span>
+                                    }
                                     <div className="modal fade" id="ratingModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div className="modal-dialog modal-lg">
                                             <div className="modal-content">
