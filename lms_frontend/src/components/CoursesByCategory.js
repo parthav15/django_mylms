@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
-const baseUrl = 'http://127.0.0.1:8000/api';
+const baseUrl = 'https://techeduca.pythonanywhere.com/api';
 
 function CoursesByCategory() {
   const coursesPerPage = 3; // Number of courses to display per page

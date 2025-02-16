@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TeacherSidebar from './TeacherSidebar';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-const baseUrl = 'http://127.0.0.1:8000/api';
+const baseUrl = 'https://techeduca.pythonanywhere.com/api';
 
 function TeacherDashboard() {
 

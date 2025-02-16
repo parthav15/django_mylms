@@ -3,8 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import '../App.css';
-const siteUrl = 'http://127.0.0.1:8000/';
-const baseUrl = 'http://127.0.0.1:8000/api/';
+const siteUrl = 'https://techeduca.pythonanywhere.com/';
+const baseUrl = 'https://techeduca.pythonanywhere.com/api/';
 
 function CourseDetail() {
     const [courseData, setCourseData] = useState([]);

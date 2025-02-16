@@ -22,7 +22,7 @@ const EditCourse = ({ match }) => {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/teacher-course-detail/${course_id}`);
+        const response = await axios.get(`https://techeduca.pythonanywhere.com/api/teacher-course-detail/${course_id}`);
         const { title, description, techs, teacher, category, featured_img } = response.data;
         setCourseData({
           title,
@@ -40,7 +40,7 @@ const EditCourse = ({ match }) => {
 
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/category/');
+        const response = await axios.get('https://techeduca.pythonanywhere.com/api/category/');
         setCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -77,7 +77,7 @@ const EditCourse = ({ match }) => {
       }
     });
     try {
-      await axios.put(`http://127.0.0.1:8000/api/teacher-course-detail/${course_id}`, formData, {
+      await axios.put(`https://techeduca.pythonanywhere.com/api/teacher-course-detail/${course_id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

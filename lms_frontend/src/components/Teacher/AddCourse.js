@@ -17,7 +17,7 @@ const AddCourse = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/category/');
+        const response = await axios.get('https://techeduca.pythonanywhere.com/api/category/');
         setCategories(response.data);
         if (response.data.length > 0) {
           setSelectedCategory(response.data[0].id);
@@ -55,7 +55,7 @@ const AddCourse = () => {
       }
     });
     try {
-      await axios.post('http://127.0.0.1:8000/api/course/', formData, {
+      await axios.post('https://techeduca.pythonanywhere.com/api/course/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

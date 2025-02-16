@@ -3,7 +3,7 @@ import TeacherSidebar from './TeacherSidebar';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-const baseUrl = 'http://127.0.0.1:8000/api';
+const baseUrl = 'https://techeduca.pythonanywhere.com/api';
 
 const AddChapter = ({ onAdd }) => {
 

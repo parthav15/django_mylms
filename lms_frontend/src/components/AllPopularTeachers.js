@@ -9,7 +9,7 @@ function AllPopularTeachers() {
     useEffect(() => {
       document.title = "Popular Teachers";
   
-      const baseUrl = 'http://127.0.0.1:8000/api';
+      const baseUrl = 'https://techeduca.pythonanywhere.com/api';
       axios.get(baseUrl + '/teacher/')
         .then((response) => {
           setTeacher(response.data);

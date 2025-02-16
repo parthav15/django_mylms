@@ -9,7 +9,7 @@ const EnrolledStudents = () => {
   useEffect(() => {
     const fetchEnrolledStudents = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/fetch-enrolled-students/${course_id}`);
+        const response = await axios.get(`https://techeduca.pythonanywhere.com/api/fetch-enrolled-students/${course_id}`);
         setEnrolledStudents(response.data);
       } catch (error) {
         console.error('Error fetching enrolled students:', error);

@@ -10,7 +10,7 @@ import {
   MDBInput
 } from 'mdb-react-ui-kit';
 
-const baseUrl = 'http://127.0.0.1:8000/api/teacher/';
+const baseUrl = 'https://techeduca.pythonanywhere.com/api/teacher/';
 
 const TeacherRegister = () => {
   const initialState = {
